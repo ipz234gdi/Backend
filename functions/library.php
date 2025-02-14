@@ -41,11 +41,11 @@ function generateTable($rows, $cols) {
 }
 
 function generateSquares($n) {
-    $square = "<div style='position: relative; width: 100%; height: 100vh; background-color: black;'>";
+    $square = "<div style='position: relative; width: 100%; height: 50vh; background-color: black;'>";
     for ($i = 0; $i < $n; $i++) {
         $size = mt_rand(20, 100); // Випадковий розмір квадрату
-        $top = mt_rand(0, 90); // Випадкове розташування
-        $left = mt_rand(0, 90);
+        $top = mt_rand(10, 90); // Випадкове розташування
+        $left = mt_rand(10, 90);
 
         $square .= "<div style='
             position: absolute;
