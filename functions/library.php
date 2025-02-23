@@ -60,4 +60,75 @@ function generateSquares($n) {
     return $square;
 }
 
+// Завдання 1.5
+function isStrongPassword($password) {
+    return preg_match('/[A-Z]/', $password) && 
+           preg_match('/[a-z]/', $password) && 
+           preg_match('/[0-9]/', $password) && 
+           preg_match('/[!@#$%^&*()\\-_]/', $password) &&
+           strlen($password) >= 8;
+}
+
+// Завдання 2.1:
+function findDuplicat($array) {
+    $counts = array_count_values($array);
+    return array_keys(array_filter($counts, fn($count) => $count > 1));
+}
+
+// Завдання 2.2:
+function petName($sclady) {
+    shuffle($sclady);
+    return implode('', array_slice($sclady, 0, rand(2, 4)));
+}
+
+// Завдання 2.3:
+function createArray() {
+    $length = rand(3, 7);
+    return array_map(fn() => rand(10, 20), range(1, $length));
+}
+
+function Newsortarray($array1, $array2) {
+    $mergedArray = array_values(array_unique(array_merge($array1, $array2), SORT_NUMERIC));
+    sort($mergedArray);
+    return $mergedArray;
+}
+
+// Завдання 2.4:
+function sortAssociativeArray(&$array, $sortBy) {
+    if ($sortBy === "age") {
+        asort($array);
+    } elseif ($sortBy === "name") {
+        ksort($array);
+    }
+}
+
+// Завдання 4.1
+function factorial($x) {
+    if ($x < 0) return "Помилка: x має бути ≥ 0";
+    if ($x == 0 || $x == 1) return 1;
+    return $x * factorial($x - 1);
+}
+
+function stepen($x, $y) {
+    return pow($x, $y);
+}
+
+function my_tg($x) {
+    if (cos($x) == 0) return "Не визначено";
+    return sin($x) / cos($x);
+}
+
+function my_sin($x) {
+    return sin($x);
+}
+
+function my_cos($x) {
+    return cos($x);
+}
+
+function my_tan($x) {
+    if (cos($x) == 0) return "Не визначено";
+    return tan($x);
+}
+
 ?>

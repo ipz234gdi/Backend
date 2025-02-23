@@ -1,3 +1,5 @@
 ## Лабораторні з **BackEnd**
 
-lab_1 => `http://labs.local/?lab=1`
+lab_1 => `+`
+lab_2 => `+`
+lab_3 => `+`
