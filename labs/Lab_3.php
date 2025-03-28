@@ -1,5 +1,6 @@
 <?php
 // Завдання 1
+
 $task1 = '<h3>Завдання 1.1: Вибір розміру тексту</h3>';
 if (isset($_GET['size'])) {
     $size = $_GET['size'];
@@ -20,15 +21,17 @@ $task1 .= '
 // Завдання 2
 $task2 = '<h3>Завдання 2.1: Авторизація</h3>';
 
-if ($_SERVER["REQUEST_METHOD"] === "POST" & isset($_POST['login'])) {
-    $login = $_POST['login'] ?? '';
+if ($_SERVER["REQUEST_METHOD"] === "POST" & isset($_POST['login2'])) {
+    $login = $_POST['login2'] ?? '';
     $password = $_POST['password'] ?? '';
 
     if ($login === 'Admin' && $password === 'password') {
         $_SESSION['user'] = $login;
     } else {
-        $error = "Невірний логін або пароль!";
+        $_SESSION['error2_2'] = "Невірний логін або пароль!";
     }
+    header("Location: index.php" . "?lab=3");
+    exit;
 }
 
 if (isset($_SESSION['user'])) {
@@ -38,14 +41,15 @@ if (isset($_SESSION['user'])) {
     $task2 .= '
         <h2>Авторизація</h2>
         <form method="post">
-            Логін: <input type="text" name="login" required><br>
+            Логін: <input type="text" name="login2" required><br>
             Пароль: <input type="password" name="password" required><br>
             <input type="submit" value="Увійти">
         </form>
     ';
 
-    if (isset($error)) {
-        $task2 .= "<p style='color: red;'>$error</p>";
+    if (isset($_SESSION['error2_2'])) {
+        $task2 .= '<p style="color: red;">' . htmlspecialchars($_SESSION['error2_2']) . '</p>';
+        unset($_SESSION['error2_2']);
     }
 }
 
@@ -135,7 +139,7 @@ $task3 .= '
 </form>
 ';
 
-if ($_SERVER["REQUEST_METHOD"] === "POST" ) {
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["file_name"])) {
     if(isset($_POST['file_name'])){
         $fileToDelete = $_POST["file_name"];
         $filePath = dirname(__DIR__) . '/' . $fileToDelete;
@@ -156,6 +160,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" ) {
         file_put_contents("moreTwice.txt", implode(" ", $moreTwice));
         $task3 .= "<p style='color: green;'>Файли створенно!</p>";
     }
+    header("Location: index.php" . "?lab=3");
+    exit;
 }
 
 $task3 .= '
@@ -214,17 +220,18 @@ $task5 = 'Завдання 5.1 авторизація і створення фа
 
 $baseDir = "users";
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $login = trim($_POST["login"] ?? '');
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["login5"])) {
+    $login = trim($_POST["login5"] ?? '');
     $password = trim($_POST["password"] ?? '');
 
     if (empty($login) || empty($password)) {
-        $error = "Логін і пароль не можуть бути порожні!";
+        $_SESSION['error2_5'] = "Логін і пароль не можуть бути порожні!";
     } else {
         $userDir = "$baseDir/$login";
 
         if (file_exists($userDir)) {
-            $error = "Користувач з таким логіном вже існує!";
+            $_SESSION['error2_2'] = "Невірний логін або пароль!";
+            $_SESSION['error2_5'] = "Користувач з таким логіном вже існує!";
         } else {
             mkdir($userDir, 0777, true);
             mkdir("$userDir/video");
@@ -235,28 +242,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             file_put_contents("$userDir/music/music1.txt", "Файл музики");
             file_put_contents("$userDir/photo/photo1.txt", "Файл фото");
 
-            $success = "Реєстрація успішна! Папка користувача створена.";
+            $_SESSION['success2_5'] = "Реєстрація успішна! Папка користувача створена.";
         }
     }
+    // $_SESSION['error2_5'] = "Користувач з таким логіном вже існує!";
+    header("Location: index.php?lab=3");
+    exit;
 }
 
 $task5 .= '
     <h2>Реєстрація</h2>
 
     <form method="post">
-        Логін: <input type="text" name="login" required><br>
+        Логін: <input type="text" name="login5" required><br>
         Пароль: <input type="password" name="password" required><br>
         <input type="submit" value="Зареєструватися">
     </form>
     <a href="../functions/delete.php">Форма видалення</a>
 ';
-if (isset($error)):
-    $task5 .= '<p style="color: red;"><?= $error ?></p>';
-endif;
 
-if (isset($success)):
-    $task5 .= '<p style="color: green;"><?= $success ?></p>';
-endif;
+if (isset($_SESSION['error2_5'])) {
+    $task5 .= '<p style="color: red;"> ' .  htmlspecialchars($_SESSION['error2_5']) . '</p>';
+    unset($_SESSION['error2_5']);
+}
+
+if (isset($_SESSION['success2_5'])) {
+    $task5 .= '<p style="color: green;"> ' .  htmlspecialchars($_SESSION['success2_5']) . '</p>';
+    unset($_SESSION['success2_5']);
+}
 
 
 ?>

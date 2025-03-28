@@ -1,9 +1,14 @@
 <?php
 session_start();
+// session_set_cookie_params(6 * 30 * 24 * 60 * 60); // Сесія зберігається 6 місяців
 $Header = '
 <a href="http://labs.local/?lab=1" class="btn">Lab_1</a>
 <a href="http://labs.local/?lab=2" class="btn">Lab_2</a>
 <a href="http://labs.local/?lab=3" class="btn">Lab_3</a>
+<a href="http://labs.local/?lab=4" class="btn">Lab_4</a>
+<a href="http://labs.local/?lab=5" class="btn">Lab_5</a>
+<a href="http://labs.local/?lab=6" class="btn">Lab_6</a>
+<a href="http://labs.local/?lab=7" class="btn">Lab_7</a>
 ';
 $Title = 'Hub';
 
@@ -24,6 +29,26 @@ if (isset($_GET['lab'])) {
             $Title = 'Lab_3';
             //$result = 'done';
             include 'labs/Lab_3.php';
+            break;
+        case 4:
+            $Title = 'Lab_4';
+            //$result = 'done';
+            include 'labs/Lab_4/index.php';
+            break;
+        case 5:
+            $Title = 'Lab_5';
+            //$result = 'done';
+            include 'labs/Lab_5/index.php';
+            break;
+        case 6:
+            $Title = 'Lab_6';
+            //$result = 'done';
+            include 'labs/Lab_6/index.php';
+            break;
+        case 7:
+            $Title = 'Lab_7';
+            //$result = 'done';
+            include 'labs/Lab_7/index.php';
             break;
     }
 

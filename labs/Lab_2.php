@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($length >= 4 && $length <= 20) {
             $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_';
             $password = substr(str_shuffle(str_repeat($characters, ceil($length / strlen($characters)))), 0, $length);
-            $passwordCheck = isStrongPassword($password) ? "Міцний пароль ✅" : "Слабкий пароль ❌";
+            $passwordCheck = isStrongPassword($password) ? "Міцний пароль" : "Слабкий пароль";
         } else {
             $password = "Довжина пароля повинна бути від 4 до 20 символів.";
         }
